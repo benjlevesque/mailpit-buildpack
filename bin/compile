@@ -21,15 +21,19 @@ INSTALL_PATH="/usr/local/bin/"
 
 ARCHIVE_FILE="mailpit-${OS}-${OS_ARCH}.tar.gz"
 
+TEMP_DIR="$(mktemp -qd)"
+cd $TEMP_DIR
+
 if [ -z "${MAILPIT_VERSION}" ] ; then
     echo "no version specified, defaulting to latest..."
     MAILPIT_VERSION="$(curl -sfL https://api.github.com/repos/${GH_REPO}/releases/latest | jq -r '.tag_name' )"
 fi
 
+
 echo "Mailpit version : ${MAILPIT_VERSION}"
 echo "OS/Arch" : "${OS}/${OS_ARCH}"
 echo "Downloading Mailpit ${MAILPIT_VERSION}/${ARCHIVE_FILE}..."
-curl -sL https://github.com/${GH_REPO}/releases/download/${MAILPIT_VERSION}/${ARCHIVE_FILE}
+curl -sL  -o "${ARCHIVE_FILE}" https://github.com/${GH_REPO}/releases/download/${MAILPIT_VERSION}/${ARCHIVE_FILE}
 
 if ! [ -f "${ARCHIVE_FILE}" ]; then
     echo "ERROR: Downloading latest release."
@@ -40,7 +44,7 @@ tar zxf "$ARCHIVE_FILE"
 chmod +x mailpit
 chown root:root mailpit
 mv mailpit $INSTALL_PATH
-
+rm -rf $TEMP_DIR
 
 mailpit version
 echo "Done."
