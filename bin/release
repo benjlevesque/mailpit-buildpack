@@ -8,5 +8,5 @@ cat <<EOF
 addons: []
 config_vars: {}
 default_process_types:
-  web: /app/vendor/mailpit/bin/mailpit --listen 0.0.0.0:$PORT
+  web: /app/vendor/mailpit/bin/mailpit --listen 0.0.0.0:\${PORT:-8025}
 EOF
