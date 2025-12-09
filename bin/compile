@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+# fail fast
+set -eo pipefail
+
+# debug
+if [ "$BUILDPACK_DEBUG" = "true" ] ; then
+  set -x
+fi
+
+
+# parse and derive params
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+GH_REPO="axllent/mailpit"
+OS=linux
+OS_ARCH="amd64"
+INSTALL_PATH="/usr/local/bin/"
+
+ARCHIVE_FILE="mailpit-${OS}-${OS_ARCH}.tar.gz"
+
+if [ -z "${MAILPIT_VERSION}" ] ; then
+    echo "no version specified, defaulting to latest..."
+    MAILPIT_VERSION="$(curl -sfL https://api.github.com/repos/${GH_REPO}/releases/latest | jq -r '.tag_name' )"
+fi
+
+echo "Mailpit version : ${MAILPIT_VERSION}"
+echo "OS/Arch" : "${OS}/${OS_ARCH}"
+echo "Downloading Mailpit ${MAILPIT_VERSION}/${ARCHIVE_FILE}..."
+curl -sL https://github.com/${GH_REPO}/releases/download/${MAILPIT_VERSION}/${ARCHIVE_FILE}
+
+if ! [ -f "${ARCHIVE_FILE}" ]; then
+    echo "ERROR: Downloading latest release."
+    exit 1
+fi
+
+tar zxf "$ARCHIVE_FILE"
+chmod +x mailpit
+chown root:root mailpit
+mv mailpit $INSTALL_PATH
+
+
+mailpit version
+echo "Done."
+
