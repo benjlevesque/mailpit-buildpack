@@ -17,7 +17,7 @@ echo "-----> Installing Mailpit"
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-INSTALL_PATH="/app/vendor/mailpit/bin"
+INSTALL_PATH="$BUILD_DIR/vendor/mailpit/bin"
 echo "Build dir: $BUILD_DIR"
 echo "Current dir: $(pwd)"
 
