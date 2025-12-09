@@ -6,8 +6,7 @@ set -e
 cat <<EOF
 ---
 addons: []
-config_vars:
-  PATH: /app/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/app/bin:/app/vendor/mailpit/bin
+config_vars: {}
 default_process_types:
-  web: mailpit
+  web: /app/vendor/mailpit/bin/mailpit
 EOF
