@@ -44,7 +44,6 @@ fi
 
 tar zxf "$ARCHIVE_FILE"
 chmod +x mailpit
-chown root:root mailpit
 mv mailpit $INSTALL_PATH
 
 mailpit version
