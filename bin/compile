@@ -10,9 +10,14 @@ if [ "$BUILDPACK_DEBUG" = "true" ] ; then
 fi
 
 
+echo "-----> Installing Mailpit"
+
+
 # parse and derive params
 BUILD_DIR=$1
 CACHE_DIR=$2
+echo "Build dir: $BUILD_DIR"
+echo "Current dir: $(pwd)"
 
 GH_REPO="axllent/mailpit"
 OS=linux
@@ -20,9 +25,6 @@ OS_ARCH="amd64"
 INSTALL_PATH="/usr/local/bin/"
 
 ARCHIVE_FILE="mailpit-${OS}-${OS_ARCH}.tar.gz"
-
-TEMP_DIR="$(mktemp -qd)"
-cd $TEMP_DIR
 
 if [ -z "${MAILPIT_VERSION}" ] ; then
     echo "no version specified, defaulting to latest..."
@@ -44,7 +46,6 @@ tar zxf "$ARCHIVE_FILE"
 chmod +x mailpit
 chown root:root mailpit
 mv mailpit $INSTALL_PATH
-rm -rf $TEMP_DIR
 
 mailpit version
 echo "Done."
