@@ -46,6 +46,6 @@ export PATH="$BUILD_DIR:$PATH"
 tar zxf "$ARCHIVE_FILE"
 chmod +x mailpit
 
-mailpit version
+ls
 echo "Done."
 
