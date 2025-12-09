@@ -17,7 +17,7 @@ echo "-----> Installing Mailpit"
 BUILD_DIR=$1
 CACHE_DIR=$2
 
-INSTALL_PATH="/usr/local/bin/"
+INSTALL_PATH="/app/vendor/mailpit/bin"
 echo "Build dir: $BUILD_DIR"
 echo "Current dir: $(pwd)"
 
@@ -47,6 +47,7 @@ export PATH="$BUILD_DIR:$PATH"
 
 tar zxf "$ARCHIVE_FILE"
 chmod +x mailpit
+mkdir -p "${INSTALL_PATH}"
 mv mailpit "${INSTALL_PATH}"
 
 ls
