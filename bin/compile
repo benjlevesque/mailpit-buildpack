@@ -50,5 +50,8 @@ chmod +x mailpit
 mkdir -p "${INSTALL_PATH}"
 mv mailpit "${INSTALL_PATH}"
 
+echo "Mailpit installed to ${INSTALL_PATH}"
+ls -la "${INSTALL_PATH}"
+
 echo "Done."
 
