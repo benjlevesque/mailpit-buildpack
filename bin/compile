@@ -47,7 +47,7 @@ export PATH="$BUILD_DIR:$PATH"
 
 tar zxf "$ARCHIVE_FILE"
 chmod +x mailpit
-mv mailpit "${INSTALL_PATH}"
+sudo mv mailpit "${INSTALL_PATH}"
 
 ls
 echo "Done."
